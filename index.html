@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="es-UY">
+<head>	
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Cumple 6 de Victoria</title>
+  <meta name="description" content="Invitación al cumple de Victoria (6 años). Confirmación por WhatsApp." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-pink:#ffe6f2;
+      --card:rgba(255,255,255,.90);
+      --ink:#594a4e;
+      --muted:#9c8c90;
+      --hk-red:#ff3366;
+      --hk-pink:#ff85b3;
+      --radius:26px;
+      --shadow: 0 16px 40px rgba(255, 51, 102, 0.15);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      font-family:'Fredoka', sans-serif;
+      color:var(--ink);
+      background-color: var(--bg-pink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x:hidden;
+
+      background-image: url("img/fondo-kitty.jpg");
+      background-repeat: repeat;
+      background-size: 360px 360px;
+      background-position: 0 0;
+    }
+
+    .wrap{
+      max-width:480px;
+      margin:0 auto;
+      padding:20px 16px 24px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 2px solid rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: overflow: visible;
+;
+    }
+
+    /* Todo el contenido por arriba de stickers */
+    .card > *{ position:relative; z-index:2; }
+
+    /* Stickers: al fondo y sin tapar */
+    .sticker{
+      position:absolute;
+      width:112px;
+      height:auto;
+      pointer-events:none;
+      user-select:none;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.10));
+      opacity: .55;
+      z-index:0;
+    }
+	/* Stickers que van POR ARRIBA del contenido */
+.sticker.front{
+  z-index: 5;          /* más alto que botones */
+  opacity: .75;
+}
+    .st1{ top:-14px; right:-14px; transform: rotate(10deg); }
+    .st2{ bottom:-18px; left:-14px; transform: rotate(-10deg); width:120px; }
+    .st3{ top:-14px; left:10px; transform: rotate(-6deg); width:98px; }
+    .st4{ bottom:-18px; right:-14px; transform: rotate(8deg); width:120px; }
+    .st5{ top:-14px; right:92px; transform: rotate(-8deg); width:98px; }
+
+    /* Kitty del mapa a la derecha, apenas asomando "cuello" */
+    .mapKitty{
+      right:-18px;
+      top:126px;
+      left:auto;
+      bottom:auto;
+      width:150px;
+      transform: rotate(7deg);
+      opacity:.42;
+    }
+
+    /* KITTY REAL (header) */
+    .hk-header{
+      position: relative;
+      height: 118px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-end;
+      margin-bottom:-38px;
+      z-index:2;
+      pointer-events:none;
+    }
+    .hk-real{
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.78);
+      border: 2px solid rgba(255,255,255,.95);
+      box-shadow: 0 16px 34px rgba(0,0,0,.12);
+      backdrop-filter: blur(10px);
+      transform: translateY(16px);
+      overflow:hidden;
+    }
+    .hk-real img{
+      width: 92%;
+      height: 92%;
+      object-fit: contain;
+      display:block;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.10));
+    }
+
+    .h1{
+      margin:0;
+      font-size:34px;
+      letter-spacing:-0.6px;
+      line-height:1.05;
+      font-weight:800;
+      color:var(--hk-red);
+      text-align:center;
+      text-shadow:2px 2px 0px #fff;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:16px;
+      text-align:center;
+      font-weight:700;
+    }
+
+    .pill{
+      background:#fff;
+      padding:7px 16px;
+      border-radius:999px;
+      color:var(--hk-red);
+      font-size:13px;
+      font-weight:800;
+      border:2px solid var(--hk-pink);
+      display:table;
+      margin:12px auto 0;
+      box-shadow: 0 10px 18px rgba(0,0,0,.06);
+    }
+
+    .sectionTitle{
+      margin:0 0 14px;
+      color:var(--hk-red);
+      font-weight:900;
+      text-align:center;
+      font-size:18px;
+    }
+
+    .info{
+      background: rgba(255,255,255,0.78);
+      border-radius:18px;
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:10px;
+      border:1px solid rgba(255,255,255,.95);
+    }
+    .icon{
+      width:42px; height:42px; border-radius:50%;
+      background:#fff; color: var(--hk-red);
+      display:grid; place-items:center;
+      flex:0 0 auto; font-size:20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .info div b{display:block; font-size:14px; color: var(--hk-red); margin-bottom:2px;}
+    .info div span{font-size:15px; color: var(--ink); line-height:1.2;}
+
+    .actions{display:grid; gap:10px; margin-top:16px;}
+    .btn{
+      border:0; cursor:pointer; width:100%;
+      padding:15px;
+      border-radius:20px;
+      font-weight:800; font-size:15px;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      text-decoration:none;
+      transition: transform 0.1s;
+      font-family:'Fredoka', sans-serif;
+    }
+    .btn:active{transform: scale(0.97);}
+    .btn.secondary{background:#fff; color: var(--ink); border:2px solid rgba(255,230,242,.9);}
+    .btn.primary{
+      background: var(--hk-red); color:#fff;
+      box-shadow: 0 10px 26px rgba(255, 51, 102, 0.32);
+      border: 2px solid transparent;
+    }
+
+    /* Achicar SOLO el botón de WhatsApp */
+#btnSend{
+  padding: 9px 12px;          /* menos alto */
+  font-size: 13px;            /* texto más chico */
+  border-radius: 16px;
+  line-height: 1;
+  box-shadow: 0 8px 18px rgba(255, 51, 102, 0.28);
+}
+
+
+    .rsvp input, .rsvp select{
+      width:100%;
+      padding:14px;
+      border-radius:16px;
+      border:2px solid rgba(255,230,242,.9);
+      background:#fff;
+      font-size:15px;
+      outline:none;
+      font-family:'Fredoka', sans-serif;
+      color: var(--ink);
+      margin-bottom:10px;
+    }
+    .rsvp input:focus, .rsvp select:focus{border-color: var(--hk-red);}
+
+    /* Runner game */
+    .runner{
+      height: 260px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.95));
+      border: 2px solid rgba(255,255,255,.95);
+      position:relative;
+      overflow:hidden;
+      user-select:none;
+      touch-action: manipulation;
+    }
+    .ground{
+      position:absolute;
+      left:0; right:0;
+      bottom:40px;
+      height:4px;
+      background: rgba(255,51,102,.22);
+    }
+
+    .player{
+      position:absolute;
+      left:28px;
+      bottom:40px;
+      width:90px;
+      height:90px;
+      will-change: transform;
+      display:block;
+    }
+    .player img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.14));
+    }
+
+    /* Items que se juntan / esquivan */
+    .obstacle{
+      position:absolute;
+      bottom:40px;
+      width:52px;
+      height:52px;
+      will-change:left;
+      display:block;
+    }
+    .obstacle img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.14));
+    }
+
+    .hint{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      pointer-events:none;
+    }
+    .hint span{
+      background: rgba(255,255,255,.88);
+      border:2px solid rgba(255,230,242,.9);
+      padding:12px 16px;
+      border-radius: 999px;
+      font-weight:900;
+      color: var(--ink);
+      box-shadow: 0 14px 22px rgba(0,0,0,.06);
+    }
+
+    .runnerHud{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:12px;
+      gap:10px;
+    }
+.hudBox{
+  background:#fff;
+  border:2px solid rgba(255,230,242,.9);
+  border-radius: 14px;
+  padding:8px 10px;           /* MÁS chico */
+  font-weight:900;
+  font-size:13px;             /* texto menor */
+  color: var(--hk-red);
+  flex:1;
+  text-align:center;
+  box-shadow: 0 8px 14px rgba(0,0,0,.05);
+}
+
+
+    /* Botón SALTAR */
+    .jumpBtn{
+      position:absolute;
+      right:12px;
+      bottom:12px;
+      width:78px;
+      height:78px;
+      border-radius:50%;
+      border:none;
+      background: var(--hk-red);
+      color:#fff;
+      font-weight:900;
+      font-size:14px;
+      box-shadow: 0 10px 22px rgba(255,51,102,.45);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      z-index:5;
+      touch-action: manipulation;
+    }
+    .jumpBtn:active{ transform: scale(0.97); }
+
+    /* Confetti */
+    .confetti{
+      position: fixed;
+      top: -10px;
+      width: 8px; height: 8px;
+      background: #f00;
+      animation: fall linear forwards;
+      z-index: 3000;
+      border-radius: 2px;
+    }
+    @keyframes fall{ to{ transform: translateY(110vh) rotate(720deg);} }
+
+    /* PORTADA */
+    .cover{
+      position:fixed;
+      inset:0;
+      z-index:2500;
+      display:grid;
+      place-items:center;
+      padding:18px;
+      background: rgba(255, 230, 242, .92);
+      backdrop-filter: blur(10px);
+    }
+    .cover.hidden{
+      opacity:0;
+      pointer-events:none;
+      transform: translateY(10px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .coverBox{
+      width:min(520px, 100%);
+      border-radius: 30px;
+      overflow:hidden;
+      border:2px solid rgba(255,255,255,.95);
+      box-shadow: 0 20px 60px rgba(255, 51, 102, 0.22);
+      position:relative;
+      background:#fff;
+    }
+    .coverBg{
+      width:100%;
+      height: 430px;
+      background-image: url("img/portada-kitty.jpg");
+      background-size: cover;
+      background-position: center;
+      position:relative;
+    }
+    .coverGlow{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255,255,255,.55), transparent 55%),
+        linear-gradient(180deg, transparent 35%, rgba(0,0,0,.22) 100%);
+      pointer-events:none;
+    }
+    .coverVicky{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      width: 220px;
+      height: 220px;
+      border-radius: 34px;
+      overflow:hidden;
+      background: rgba(255,255,255,.60);
+      border:2px solid rgba(255,255,255,.95);
+      box-shadow: 0 18px 36px rgba(0,0,0,.18);
+      display:grid;
+      place-items:center;
+      backdrop-filter: blur(10px);
+    }
+    .coverVicky img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .coverText{
+      padding:16px 18px 18px;
+      background:#fff;
+      text-align:center;
+    }
+    .coverTitle{
+      margin:0;
+      font-size:34px;
+      line-height:1.02;
+      letter-spacing:-0.8px;
+      color: var(--hk-red);
+      text-shadow: 2px 2px 0 #fff;
+      font-weight:900;
+    }
+    .coverSub{
+      margin:10px 0 0;
+      font-size:14px;
+      color: var(--muted);
+      font-weight:800;
+    }
+    .coverBtnWrap{
+      padding: 0 18px 18px;
+      background:#fff;
+    }
+
+    /* Footer pill */
+    .footerPillWrap{
+      display:flex;
+      justify-content:center;
+      margin-top:18px;
+      padding-bottom: 6px;
+    }
+    .footerPill{
+      background: rgba(255,255,255,.88);
+      border: 2px solid rgba(255,133,179,.55);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight:900;
+      color: var(--hk-red);
+      font-size: 14px;
+      box-shadow: 0 16px 26px rgba(0,0,0,.06);
+      text-shadow: 1px 1px 0 rgba(255,255,255,.9);
+    }
+
+    @media (max-width: 380px){
+      .sticker{ width:98px; }
+      .coverVicky{ width:200px; height:200px; }
+      .hk-real{ width:150px; height:150px; }
+      .player{ width:84px; height:84px; }
+      .obstacle{ width:48px; height:48px; }
+      .jumpBtn{ width:70px; height:70px; }
+
+      /* mapa kitty en pantallas chicas */
+      .mapKitty{ top:118px; width:140px; right:-22px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PORTADA -->
+  <div class="cover" id="cover">
+    <div class="coverBox">
+      <div class="coverBg">
+        <div class="coverGlow"></div>
+        <div class="coverVicky" title="Vicky">
+          <img src="img/portada-vicky.png" alt="Vicky" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <div class="coverText">
+        <h1 class="coverTitle">¡Cumple de Victoria! 🎀</h1>
+        <p class="coverSub">Entrá a la invitación y confirmá por WhatsApp</p>
+      </div>
+
+      <div class="coverBtnWrap">
+        <button class="btn primary" id="btnEnter">🎉 Entrar a la invitación</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- KITTY REAL ARRIBA -->
+    <div class="hk-header" aria-hidden="true">
+      <div class="hk-real">
+        <img src="img/kitty-head.png" alt="Hello Kitty" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <div class="card" style="padding-top:74px; text-align:center;">
+      <img class="sticker st3 front" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
+      <img class="sticker st1" src="img/sticker-kitty-5.png" alt="" onerror="this.style.display='none'">
+
+      <h1 class="h1">¡ Victoria cumple 6 !</h1>
+      <p class="sub">Vicky te invita a festejar su cumple! 🎀</p>
+      <div class="pill">Temática: Hello Kitty</div>
+    </div>
+
+    <div class="card">
+      <img class="sticker st1 front" src="img/sticker-kitty-1.png" alt="" onerror="this.style.display='none'">
+      <img class="sticker mapKitty front" src="img/sticker-kitty-2.png" alt="" onerror="this.style.display='none'">
+
+      <h3 class="sectionTitle">Detalles del cumple 🎉</h3>
+
+      <div class="info">
+        <div class="icon">📅</div>
+        <div><b>Día</b><span id="dateText">...</span></div>
+      </div>
+
+      <div class="info">
+        <div class="icon">⏰</div>
+        <div><b>Horario</b><span id="timeText">...</span></div>
+      </div>
+
+      <div class="info">
+        <div class="icon">📍</div>
+        <div><b>Lugar</b><span id="placeText">...</span></div>
+      </div>
+
+      <div class="actions">
+        <a class="btn secondary" id="btnMaps" href="#" target="_blank" rel="noopener">🗺️ Ver Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="sticker st1 front" src="img/sticker-kitty-4.png" alt="" onerror="this.style.display='none'">
+
+      <h3 style="margin:0 0 4px; color:var(--hk-red); font-weight:900;">Confirmar Asistencia</h3>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:14px; font-weight:700;">Por favor confirmá para organizarnos mejor.</p>
+
+      <div class="rsvp">
+        <input id="name" placeholder="Escribí tu nombre..." />
+        <select id="answer">
+          <option value="Sí">✅ ¡Siii, voy!</option>
+          <option value="No">❌ No podré ir</option>
+        </select>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <select id="guests">
+            <option value="1">1 Adulto</option>
+            <option value="2">2 Adultos</option>
+            <option value="3">3 Adultos</option>
+            <option value="4">4 Adultos</option>
+          </select>
+          <select id="kids">
+            <option value="0">0 Niños</option>
+            <option value="1">1 Niño</option>
+            <option value="2">2 Niños</option>
+            <option value="3">3 Niños</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="btnSend">💖 Enviar Confirmación por WhatsApp</button>
+      <p id="note" style="margin:10px 0 0; font-size:12px; color:var(--muted); text-align:center; font-weight:700;"></p>
+    </div>
+
+    <div class="card">
+      <img class="sticker st1 front" src="img/sticker-kitty-2.png" alt="" onerror="this.style.display='none'">
+      <img class="sticker st4 front" src="img/sticker-kitty-5.png" alt="" onerror="this.style.display='none'">
+
+      <h3 style="margin:0 0 4px; color:var(--hk-red); font-weight:900;">Juego: Juntá los moños 🎀</h3>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:14px; font-weight:700;">
+        Saltá para <b>juntar moños</b> 🎀 y esquivar las caquitas 💩.
+      </p>
+
+      <div class="runner" id="runner">
+        <div class="hint" id="runnerHint"><span>Tocá para saltar 👇</span></div>
+
+        <div class="player" id="player">
+          <img id="playerImg" src="img/game-kitty.png" alt="Kitty" onerror="this.style.display='none'">
+        </div>
+
+        <div class="ground"></div>
+
+        <button class="jumpBtn" id="jumpBtn">Saltar</button>
+      </div>
+
+      <div class="runnerHud">
+        <div class="hudBox">Moños: <span id="runScore">0</span></div>
+      </div>
+      <p id="runMsg" style="margin:10px 0 0; font-size:12px; color:var(--muted); text-align:center; font-weight:700;"></p>
+    </div>
+
+    <div class="footerPillWrap">
+      <div class="footerPill">Hecho por papi para Vicky 😍</div>
+    </div>
+
+  </div>
+
+<script>
+  const config = {
+    cumpleNombre: "Victoria",
+    cumpleEdad: 6,
+    startISO: "2026-02-07T19:00:00-03:00",
+    endISO:   "2026-02-07T23:00:00-03:00",
+    lugarNombre: "Complejo HM",
+    mapsUrl: "https://maps.app.goo.gl/Z7a8qiCnV5MK5B4t7?g_st=ic",
+    whatsappNumber: "+5555999513169",
+
+    // IMAGENES DEL JUEGO (vos las creas/subis con estos nombres)
+    img: {
+      good: [
+        { src: "img/game-bow.png", alt: "moño", kind: "bow" }
+      ],
+      bad: [
+        { src: "img/game-poop-red.png",   alt: "caquita roja",   kind: "poop-red" },
+        { src: "img/game-poop-green.png", alt: "caquita verde",  kind: "poop-green" },
+        { src: "img/game-poop-brown.png", alt: "caquita marrón", kind: "poop-brown" }
+      ]
+    }
+  };
+
+  function triggerConfetti(){
+    for(let i=0; i<28; i++){
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random()*100 + "vw";
+      c.style.background = (Math.random() > 0.5) ? "var(--hk-red)" : "#ffd700";
+      c.style.animationDuration = (2 + Math.random()*2.5) + "s";
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 4500);
+    }
+  }
+
+  // Portada
+  const cover = document.getElementById("cover");
+  document.getElementById("btnEnter").addEventListener("click", ()=>{
+    triggerConfetti();
+    cover.classList.add("hidden");
+    setTimeout(()=>{ cover.style.display = "none"; }, 420);
+  });
+
+  // Fecha/Hora/Lugar
+  const start = new Date(config.startISO);
+  const end = new Date(config.endISO);
+
+  const fmtDate = new Intl.DateTimeFormat("es-UY", {
+    weekday:"long", day:"numeric", month:"long", year:"numeric"
+  });
+  const fmtTime = new Intl.DateTimeFormat("es-UY", {
+    hour: "2-digit", minute: "2-digit", hour12: false
+  });
+
+  document.getElementById("dateText").textContent = fmtDate.format(start);
+  document.getElementById("timeText").textContent = `${fmtTime.format(start)} a ${fmtTime.format(end)} hs`;
+  document.getElementById("placeText").textContent = config.lugarNombre;
+  document.getElementById("btnMaps").href = config.mapsUrl;
+
+  // WhatsApp
+  function sendWsp(){
+    const name = (document.getElementById("name").value || "").trim();
+    if(!name){
+      document.getElementById("note").textContent = "Escribí tu nombre para confirmar 🙂";
+      document.getElementById("name").focus();
+      return;
+    }
+    document.getElementById("note").textContent = "";
+
+    const answer = document.getElementById("answer").value;
+    const guests = document.getElementById("guests").value;
+    const kids = document.getElementById("kids").value;
+
+    const text =
+`*CONFIRMACIÓN CUMPLE ${config.cumpleNombre.toUpperCase()} (${config.cumpleEdad})* 🎀
+👤 Invitado: ${name}
+💌 Asiste: ${answer}
+Adultos: ${guests} | Niños: ${kids}
+
+📅 ${fmtDate.format(start)}
+⏰ ${fmtTime.format(start)} a ${fmtTime.format(end)} hs
+📍 ${config.lugarNombre}
+🗺️ ${config.mapsUrl}
+
+¡Gracias!`;
+
+    triggerConfetti();
+    const phoneDigits = String(config.whatsappNumber).replace(/\D/g, "");
+    const url = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank");
+  }
+  document.getElementById("btnSend").addEventListener("click", sendWsp);
+
+  // Runner Game (Juntar moños / esquivar caquitas)
+  const runner = document.getElementById("runner");
+  const playerEl = document.getElementById("player");
+  const hintEl = document.getElementById("runnerHint");
+  const runScoreEl = document.getElementById("runScore");
+  const runMsg = document.getElementById("runMsg");
+  const jumpBtn = document.getElementById("jumpBtn");
+
+  let playing = false;
+  let score = 0; // cantidad de moños juntados
+
+  let y = 0;
+  let vy = 0;
+  const GRAVITY = -0.8;
+  const JUMP_V = 16;
+
+  const PLAYER_LEFT = 28;
+  const PLAYER_W = 90;
+  const PLAYER_H = 90;
+  const GROUND_Y = 40;
+
+  let obstacles = [];
+  let speed = 4.2;
+  let spawnCooldown = 0;
+
+  const OB_W = 52;
+  const OB_H = 52;
+
+  // Hitbox base (misma para todos). Si después querés diferenciar, se hace.
+  const OB_HIT_W = 26;
+  const OB_HIT_H = 22;
+
+  const P_HIT_W = 34;
+  const P_HIT_H = 40;
+
+  function resetGame(){
+    obstacles.forEach(o => o.el.remove());
+    obstacles = [];
+    score = 0;
+    speed = 4.2;
+    spawnCooldown = 0;
+    y = 0;
+    vy = 0;
+    runScoreEl.textContent = "0";
+    runMsg.textContent = "";
+    hintEl.style.display = "grid";
+    setPlayerY();
+  }
+
+  function setPlayerY(){
+    playerEl.style.transform = `translateY(${(-y)}px)`;
+  }
+
+  function ensureStart(){
+    if(!playing){
+      resetGame();
+      playing = true;
+      requestAnimationFrame(loop);
+    }
+  }
+
+  function jump(){
+    ensureStart();
+    if(y === 0){
+      vy = JUMP_V;
+      hintEl.style.display = "none";
+    }
+  }
+
+  // Spawn: moños (GOOD) y caquitas (BAD)
+  function spawnObstacle(){
+    const el = document.createElement("div");
+    el.className = "obstacle";
+
+    // Ajustá la probabilidad si querés (0.55 = 55% moños)
+    const isGood = Math.random() < 0.55;
+
+    const pool = isGood ? config.img.good : config.img.bad;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+
+    el.dataset.type = isGood ? "good" : "bad";
+    el.dataset.kind = pick.kind;
+
+    const img = document.createElement("img");
+    img.src = pick.src;
+    img.alt = pick.alt;
+    img.onerror = ()=>{ img.style.display = "none"; };
+
+    el.appendChild(img);
+    runner.appendChild(el);
+
+    const runnerW = runner.getBoundingClientRect().width;
+
+    const obs = {
+      el,
+      x: runnerW + 60,
+      w: OB_W,
+      h: OB_H,
+      type: isGood ? "good" : "bad",
+      kind: pick.kind
+    };
+
+    obstacles.push(obs);
+    el.style.left = obs.x + "px";
+  }
+
+  function aabb(px1, py1, pw, ph, ox1, oy1, ow, oh){
+    const px2 = px1 + pw, py2 = py1 + ph;
+    const ox2 = ox1 + ow, oy2 = oy1 + oh;
+    return (px1 < ox2 && px2 > ox1 && py1 < oy2 && py2 > oy1);
+  }
+
+  // Devuelve el obstáculo con el que chocó, o null
+  function collisionCheck(){
+    const px = PLAYER_LEFT + (PLAYER_W - P_HIT_W) / 2;
+    const py = (GROUND_Y + y) + (PLAYER_H - P_HIT_H) - 6;
+
+    for(const o of obstacles){
+      const ox = o.x + (o.w - OB_HIT_W) / 2;
+      const oy = GROUND_Y + (o.h - OB_HIT_H);
+
+      if(aabb(px, py, P_HIT_W, P_HIT_H, ox, oy, OB_HIT_W, OB_HIT_H)) {
+        return o;
+      }
+    }
+    return null;
+  }
+
+  function loop(){
+    if(!playing) return;
+
+    vy += GRAVITY;
+    y += vy;
+    if(y < 0){ y = 0; vy = 0; }
+    setPlayerY();
+
+    // mover objetos
+    for(const o of obstacles){
+      o.x -= speed;
+      o.el.style.left = o.x + "px";
+    }
+
+    // limpiar fuera de pantalla
+    obstacles = obstacles.filter(o => {
+      if(o.x < -90){
+        o.el.remove();
+        return false;
+      }
+      return true;
+    });
+
+    // spawnear
+    spawnCooldown -= 1;
+    if(spawnCooldown <= 0){
+      spawnObstacle();
+      spawnCooldown = 58 + Math.floor(Math.random() * 36);
+      // Aumentar leve dificultad con el tiempo
+      if(speed < 7.5) speed += 0.03;
+    }
+
+    // colisión (GOOD suma / BAD pierde)
+    const hit = collisionCheck();
+    if(hit){
+      if(hit.type === "good"){
+        score += 1;
+        runScoreEl.textContent = String(score);
+
+        // remover el moño para que no sume infinito
+        hit.el.remove();
+        obstacles = obstacles.filter(o => o !== hit);
+
+        runMsg.textContent = `¡Bien! +1 moño 🎀 (Total: ${score})`;
+      } else {
+        playing = false;
+        runMsg.textContent = `¡Nooo! 💩 Te chocaste. Moños juntados: ${score}.`;
+        hintEl.style.display = "grid";
+        return;
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  runner.addEventListener("pointerdown", (e)=>{
+    if(e.target && e.target.id === "jumpBtn") return;
+    jump();
+  });
+  jumpBtn.addEventListener("pointerdown", (e)=>{ e.preventDefault(); jump(); });
+
+  document.addEventListener("keydown", (e)=>{ if(e.code === "Space") jump(); });
+
+  resetGame();
+</script>
+</body>
+</html>
