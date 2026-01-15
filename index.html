@@ -54,7 +54,7 @@
       padding: 20px;
       margin-bottom: 16px;
       position: relative;
-      overflow: overflow: visible;
+      overflow: visible;
 ;
     }
 
@@ -631,6 +631,54 @@
     }
   };
 
+  // ====== AUDIO (se habilita luego del 1er toque) ======
+  // Archivos esperados:
+  //   audio/bow.mp3  (cuando junta moño)
+  //   audio/fart.mp3 (cuando pierde)
+  //   audio/jump.mp3 (opcional, cuando salta)
+  const SFX = {
+    bow:  new Audio("audio/bow.mp3"),
+    fart: new Audio("audio/fart.mp3"),
+    jump: new Audio("audio/jump.mp3")
+  };
+
+  SFX.bow.volume = 0.70;
+  SFX.fart.volume = 0.85;
+  SFX.jump.volume = 0.45;
+
+  Object.values(SFX).forEach(a => { a.preload = "auto"; });
+
+  let audioUnlocked = false;
+
+  function unlockAudio(){
+    if(audioUnlocked) return;
+    audioUnlocked = true;
+
+    // Intento corto: play + pause para destrabar audio en mobile
+    Object.values(SFX).forEach(a => {
+      try{
+        a.currentTime = 0;
+        const p = a.play();
+        if(p && typeof p.then === "function"){
+          p.then(()=>{ a.pause(); a.currentTime = 0; }).catch(()=>{});
+        } else {
+          a.pause(); a.currentTime = 0;
+        }
+      }catch(e){}
+    });
+  }
+
+  function playSfx(aud){
+    if(!audioUnlocked || !aud) return;
+    try{
+      aud.pause();
+      aud.currentTime = 0;
+      const p = aud.play();
+      if(p && typeof p.catch === "function") p.catch(()=>{});
+    }catch(e){}
+  }
+
+
   function triggerConfetti(){
     for(let i=0; i<28; i++){
       const c = document.createElement("div");
@@ -646,6 +694,7 @@
   // Portada
   const cover = document.getElementById("cover");
   document.getElementById("btnEnter").addEventListener("click", ()=>{
+    unlockAudio();
     triggerConfetti();
     cover.classList.add("hidden");
     setTimeout(()=>{ cover.style.display = "none"; }, 420);
@@ -766,6 +815,7 @@ Adultos: ${guests} | Niños: ${kids}
     ensureStart();
     if(y === 0){
       vy = JUMP_V;
+      playSfx(SFX.jump);
       hintEl.style.display = "none";
     }
   }
@@ -864,7 +914,9 @@ Adultos: ${guests} | Niños: ${kids}
     // colisión (GOOD suma / BAD pierde)
     const hit = collisionCheck();
     if(hit){
-      if(hit.type === "good"){
+      if(hit.type === "good")
+      {
+        playSfx(SFX.bow);
         score += 1;
         runScoreEl.textContent = String(score);
 
@@ -874,6 +926,7 @@ Adultos: ${guests} | Niños: ${kids}
 
         runMsg.textContent = `¡Bien! +1 moño 🎀 (Total: ${score})`;
       } else {
+        playSfx(SFX.fart);
         playing = false;
         runMsg.textContent = `¡Nooo! 💩 Te chocaste. Moños juntados: ${score}.`;
         hintEl.style.display = "grid";
@@ -885,10 +938,11 @@ Adultos: ${guests} | Niños: ${kids}
   }
 
   runner.addEventListener("pointerdown", (e)=>{
+    unlockAudio();
     if(e.target && e.target.id === "jumpBtn") return;
     jump();
   });
-  jumpBtn.addEventListener("pointerdown", (e)=>{ e.preventDefault(); jump(); });
+  jumpBtn.addEventListener("pointerdown", (e)=>{ unlockAudio(); e.preventDefault(); jump(); });
 
   document.addEventListener("keydown", (e)=>{ if(e.code === "Space") jump(); });
 
