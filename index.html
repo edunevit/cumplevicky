@@ -477,7 +477,6 @@
 
 <body>
 
-  <!-- PORTADA -->
   <div class="cover" id="cover">
     <div class="coverBox">
       <div class="coverBg">
@@ -500,7 +499,6 @@
 
   <div class="wrap">
 
-    <!-- KITTY REAL ARRIBA -->
     <div class="hk-header" aria-hidden="true">
       <div class="hk-real">
         <img src="img/kitty-head.png" alt="Hello Kitty" onerror="this.style.display='none'">
@@ -631,51 +629,64 @@
     }
   };
 
-  // ====== AUDIO (se habilita luego del 1er toque) ======
-  // Archivos esperados:
-  //   audio/bow.mp3  (cuando junta moño)
-  //   audio/fart.mp3 (cuando pierde)
-  //   audio/jump.mp3 (opcional, cuando salta)
-  const SFX = {
-    bow:  new Audio("audio/bow.mp3"),
-    fart: new Audio("audio/fart.mp3"),
-    jump: new Audio("audio/jump.mp3")
-  };
+  // ====== AUDIO OPTIMIZADO (WEB AUDIO API) ======
+  // Esto soluciona el lag/traba al reproducir sonidos en móviles
 
-  SFX.bow.volume = 0.70;
-  SFX.fart.volume = 0.85;
-  SFX.jump.volume = 0.45;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+  const soundBuffers = {};
 
-  Object.values(SFX).forEach(a => { a.preload = "auto"; });
+  async function loadSound(key, url) {
+    try {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      soundBuffers[key] = await audioCtx.decodeAudioData(arrayBuffer);
+    } catch (e) {
+      console.warn("Error cargando sonido:", url, e);
+    }
+  }
+
+  // Cargar audios
+  loadSound("bow",  "audio/bow.mp3");
+  loadSound("fart", "audio/fart.mp3");
+  loadSound("jump", "audio/jump.mp3");
 
   let audioUnlocked = false;
 
   function unlockAudio(){
     if(audioUnlocked) return;
+    
+    // Resume context if suspended
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(()=>{});
+    }
     audioUnlocked = true;
 
-    // Intento corto: play + pause para destrabar audio en mobile
-    Object.values(SFX).forEach(a => {
-      try{
-        a.currentTime = 0;
-        const p = a.play();
-        if(p && typeof p.then === "function"){
-          p.then(()=>{ a.pause(); a.currentTime = 0; }).catch(()=>{});
-        } else {
-          a.pause(); a.currentTime = 0;
-        }
-      }catch(e){}
-    });
+    // Reproducir un buffer vacío para "despertar" el audio en iOS
+    const buffer = audioCtx.createBuffer(1, 1, 22050);
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioCtx.destination);
+    source.start(0);
   }
 
-  function playSfx(aud){
-    if(!audioUnlocked || !aud) return;
-    try{
-      aud.pause();
-      aud.currentTime = 0;
-      const p = aud.play();
-      if(p && typeof p.catch === "function") p.catch(()=>{});
-    }catch(e){}
+  function playSfx(name){
+    if(!audioUnlocked || !soundBuffers[name]) return;
+
+    const source = audioCtx.createBufferSource();
+    source.buffer = soundBuffers[name];
+    
+    const gainNode = audioCtx.createGain();
+    
+    // Volúmenes individuales
+    if(name === "bow") gainNode.gain.value = 0.7;
+    if(name === "fart") gainNode.gain.value = 0.85;
+    if(name === "jump") gainNode.gain.value = 0.45;
+
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    source.start(0);
   }
 
 
@@ -778,7 +789,7 @@ Adultos: ${guests} | Niños: ${kids}
   const OB_W = 52;
   const OB_H = 52;
 
-  // Hitbox base (misma para todos). Si después querés diferenciar, se hace.
+  // Hitbox base
   const OB_HIT_W = 26;
   const OB_HIT_H = 22;
 
@@ -815,7 +826,7 @@ Adultos: ${guests} | Niños: ${kids}
     ensureStart();
     if(y === 0){
       vy = JUMP_V;
-      playSfx(SFX.jump);
+      playSfx("jump"); // <--- AQUI CAMBIÓ A STRING
       hintEl.style.display = "none";
     }
   }
@@ -825,7 +836,6 @@ Adultos: ${guests} | Niños: ${kids}
     const el = document.createElement("div");
     el.className = "obstacle";
 
-    // Ajustá la probabilidad si querés (0.55 = 55% moños)
     const isGood = Math.random() < 0.55;
 
     const pool = isGood ? config.img.good : config.img.bad;
@@ -863,7 +873,6 @@ Adultos: ${guests} | Niños: ${kids}
     return (px1 < ox2 && px2 > ox1 && py1 < oy2 && py2 > oy1);
   }
 
-  // Devuelve el obstáculo con el que chocó, o null
   function collisionCheck(){
     const px = PLAYER_LEFT + (PLAYER_W - P_HIT_W) / 2;
     const py = (GROUND_Y + y) + (PLAYER_H - P_HIT_H) - 6;
@@ -916,7 +925,7 @@ Adultos: ${guests} | Niños: ${kids}
     if(hit){
       if(hit.type === "good")
       {
-        playSfx(SFX.bow);
+        playSfx("bow"); // <--- AQUI CAMBIÓ A STRING
         score += 1;
         runScoreEl.textContent = String(score);
 
@@ -926,7 +935,7 @@ Adultos: ${guests} | Niños: ${kids}
 
         runMsg.textContent = `¡Bien! +1 moño 🎀 (Total: ${score})`;
       } else {
-        playSfx(SFX.fart);
+        playSfx("fart"); // <--- AQUI CAMBIÓ A STRING
         playing = false;
         runMsg.textContent = `¡Nooo! 💩 Te chocaste. Moños juntados: ${score}.`;
         hintEl.style.display = "grid";
