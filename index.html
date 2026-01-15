@@ -679,9 +679,9 @@
     const gainNode = audioCtx.createGain();
     
     // Volúmenes individuales
-    if(name === "bow") gainNode.gain.value = 0.7;
-    if(name === "fart") gainNode.gain.value = 0.85;
-    if(name === "jump") gainNode.gain.value = 0.45;
+    if(name === "bow") gainNode.gain.value = 0.45;
+    if(name === "fart") gainNode.gain.value = 0.60;
+    if(name === "jump") gainNode.gain.value = 0.85;
 
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
