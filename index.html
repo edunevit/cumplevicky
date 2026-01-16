@@ -2,7 +2,15 @@
 <html lang="es-UY">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta
+  name="viewport"
+  content="width=device-width,
+           initial-scale=1,
+           maximum-scale=1,
+           user-scalable=no,
+           viewport-fit=cover"
+/>
+
   <title>Cumple 6 de Victoria</title>
   <meta name="description" content="Invitación al cumple de Victoria (6 años). Confirmación por WhatsApp." />
 
@@ -24,6 +32,11 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+	html, body{
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
 
     body{
       margin:0;
@@ -32,6 +45,8 @@
       background-color: var(--bg-pink);
       -webkit-font-smoothing: antialiased;
       overflow-x:hidden;
+	  position: fixed;
+	  width: 100%;
 
       background-image: url("img/fondo-kitty.jpg");
       background-repeat: repeat;
@@ -418,6 +433,7 @@
       display:grid;
       place-items:center;
       padding:18px;
+	  touch-action: manipulation;
 
       background-image: url("img/fondo-kitty.jpg");
       background-repeat: repeat;
