@@ -158,7 +158,7 @@
       box-shadow: 0 10px 18px rgba(0,0,0,.06);
     }
 
-    /* ====== grilla fotos (base, misma que usás adentro) ====== */
+    /* ====== grilla fotos (base) ====== */
     .memories{
       margin-top:14px;
       display:grid;
@@ -409,31 +409,23 @@
     @keyframes fall{ to{ transform: translateY(110vh) rotate(720deg);} }
 
     /* ==========================
-       PORTADA (EDITADA)
-       - fondo igual al body
-       - sin portada-kitty.jpg
-       - stickers flotantes laterales
-       - grilla sin corrimiento iOS
+       PORTADA (LIMPIA)
        ========================== */
-
     .cover{
-  position:fixed;
-  inset:0;
-  z-index:2500;
-  display:grid;
-  place-items:center;
-  padding:18px;
+      position:fixed;
+      inset:0;
+      z-index:2500;
+      display:grid;
+      place-items:center;
+      padding:18px;
 
-  /* USA EL MISMO FONDO DE KITTY */
-  background-image: url("img/fondo-kitty.jpg");
-  background-repeat: repeat;
-  background-size: 360px 360px;
-  background-position: 0 0;
+      background-image: url("img/fondo-kitty.jpg");
+      background-repeat: repeat;
+      background-size: 360px 360px;
+      background-position: 0 0;
 
-  transition: opacity .35s ease, transform .35s ease;
-}
-
-    
+      transition: opacity .35s ease, transform .35s ease;
+    }
     .cover.hidden{
       opacity:0;
       pointer-events:none;
@@ -441,99 +433,44 @@
     }
 
     .coverBox{
-  width:min(520px, 100%);
-  border-radius: 0;
-  overflow: visible;
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  position: relative;
-}
-
-    .coverBg{
-  width:100%;
-  height: 72vh;
-  min-height: 520px;
-
-  /* BORRAMOS background-image, repeat, size, position */
-  /* Solo dejamos la posición y el overflow visible */
-  
-  position:relative;
-  overflow:visible; /* IMPORTANTE: visible para que nada se corte */
-}
-
-    /* Un glow suave (sin oscurecer fuerte) */
-    .coverGlow{
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(255,255,255,.55), transparent 58%),
-        linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.08) 100%);
-      pointer-events:none;
-      filter: blur(1.2px);
-      z-index:0;
+      width:min(520px, 100%);
+      border-radius: 0;
+      overflow: visible;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      position: relative;
     }
 
-    /* Stickers mágicos laterales (solo portada) */
-    /* Stickers mágicos laterales (solo portada) */
+    .coverBg{
+      width:100%;
+      height: 78vh;
+      min-height: 600px;
+      position:relative;
+      overflow:visible;
+      background: none;
+    }
+
+    /* Stickers flotantes (portada) */
     .coverSticker{
       position:absolute;
-      width:110px; /* Tamaño base */
+      width:110px;
       height:auto;
       pointer-events:none;
       user-select:none;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
-      opacity: .85; /* Les subí un poco la opacidad para que se luzcan más */
-      z-index: 1; /* Estarán por encima del fondo pero debajo de las fotos */
+      opacity: .85;
+      z-index: 1;
       animation: coverFloat 6.5s ease-in-out infinite;
       will-change: transform;
     }
-
-    @keyframes coverFloat{
-      0%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
-      50%{ transform: translateY(-20px) rotate(var(--rot, 0deg)); } /* Flotan un poco más */
-      100%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
-    }
-
-    /* POSICIONES LIBRES EN LA PANTALLA */
-    /* Usamos top/bottom/left/right con porcentajes para usar toda la pantalla */
-    
-    /* Arriba Izquierda */
-    .cs1{ top: 5vh; left: -5vw; --rot:-15deg; animation-delay: 0s; }
-    
-    /* Arriba Derecha */
-    .cs2{ top: 2vh; right: -8vw; --rot:10deg; animation-delay: 1s; }
-    
-    /* Abajo Izquierda */
-    .cs3{ bottom: 5vh; left: -6vw; --rot:12deg; animation-delay: 2s; }
-    
-    /* Abajo Derecha */
-    .cs4{ bottom: 8vh; right: -5vw; --rot:-10deg; animation-delay: 3s; }
-    
-    /* Medio Izquierda (más pequeño) */
-    .cs5{ top: 45vh; left: -12vw; --rot:20deg; animation-delay: 1.5s; width:90px; opacity:0.6; }
-    
-    /* Medio Derecha (más pequeño) */
-    .cs6{ top: 35vh; right: -12vw; --rot:-15deg; animation-delay: 2.5s; width:90px; opacity:0.6; }
-
-    /* Ajuste para que las fotos queden POR ENCIMA de las kitties flotantes */
-    .coverMemoriesBox{
-  position:absolute;
-  inset: 14px;
-  
-  /* BORRAMOS: border-radius, background, border, box-shadow, backdrop-filter */
-
-  padding: 16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:2;
-}
     @keyframes coverFloat{
       0%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
       50%{ transform: translateY(-14px) rotate(var(--rot, 0deg)); }
       100%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
     }
+
+    /* Posiciones finales (una sola vez) */
     .cs1{ left:-34px; top:40px;  --rot:-8deg;  animation-delay: .0s; }
     .cs2{ right:-38px; top:118px; --rot:10deg; animation-delay: .7s; }
     .cs3{ left:-38px; bottom:88px; --rot:7deg;  animation-delay: 1.4s; }
@@ -558,7 +495,7 @@
       z-index:2;
     }
 
-    /* Grilla portada: 3 filas de 2 + botón (sin corrimiento en iOS) */
+    /* Grilla portada: 3 filas de 2 + botón (sin corrimiento iOS) */
     .coverMemoriesBox .memories.timeline6{
       margin:0;
       width:100%;
@@ -693,13 +630,17 @@
       .coverSticker{ width:100px; }
       .cs5,.cs6{ width:90px; }
     }
+
+    @media (prefers-reduced-motion: reduce){
+      .coverSticker{ animation: none; }
+      .btn{ transition:none; }
+    }
   </style>
 </head>
 
 <body>
 
   <div class="cover" id="cover">
-    
     <img class="coverSticker cs1" src="img/sticker-kitty-1.png" alt="" onerror="this.style.display='none'">
     <img class="coverSticker cs2" src="img/sticker-kitty-2.png" alt="" onerror="this.style.display='none'">
     <img class="coverSticker cs3" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
@@ -708,13 +649,11 @@
     <img class="coverSticker cs6" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
 
     <div class="coverBox">
-      <div class="coverBg" style="background: none; height: 70vh; min-height: 520px; position: relative;">
-        
-        
+      <div class="coverBg">
 
         <div class="coverMemoriesBox" aria-label="Vicky de 0 a 5 años">
           <div class="memories timeline6">
-             <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
             <div class="memory"><span class="badge">1</span><img src="img/vicky-1.jpg" alt="Vicky 1 año" onerror="this.style.display='none'"></div>
             <div class="memory"><span class="badge">2</span><img src="img/vicky-2.jpg" alt="Vicky 2 años" onerror="this.style.display='none'"></div>
             <div class="memory"><span class="badge">3</span><img src="img/vicky-3.jpg" alt="Vicky 3 años" onerror="this.style.display='none'"></div>
