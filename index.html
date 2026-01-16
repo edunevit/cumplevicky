@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -467,22 +467,24 @@
       border:2px solid rgba(255,255,255,.95);
       box-shadow: 0 18px 36px rgba(0,0,0,.18);
       backdrop-filter: blur(12px);
-      padding: 14px;
+      padding: 16px; /* Un poco más de padding interno */
       display:flex;
       align-items:center;
       justify-content:flex-start;
     }
 
-    /* ====== CAMBIO: 2 por fila (3 filas) ====== */
+    /* ====== SOLUCIÓN FINAL: 3 filas de 2 fotos + 1 fila botón ====== */
     .coverMemoriesBox .memories.timeline6{
       margin:0;
       width:100%;
       height:100%;
       display:grid;
-      grid-template-columns: repeat(2, 1fr); /* <-- 2 por fila */
-      gap:12px;
-      grid-auto-rows: 1fr;
-      align-content:start;
+      /* 2 columnas */
+      grid-template-columns: repeat(2, 1fr); 
+      /* 3 filas iguales para las fotos, 1 automática al final para el botón */
+      grid-template-rows: 1fr 1fr 1fr auto;
+      gap: 12px; /* Espacio bien definido entre elementos */
+      align-items: stretch;
     }
 
     .coverMemoriesBox .memory{
@@ -490,6 +492,8 @@
       border:2px solid rgba(255,255,255,.95);
       box-shadow: 0 12px 18px rgba(0,0,0,.10);
       background: rgba(255,255,255,.55);
+      /* Asegura que intenten ser cuadradas dentro de su fila */
+      aspect-ratio: 1 / 1; 
     }
 
     .coverMemoriesBox .memory .badge{
@@ -501,22 +505,25 @@
     }
 
     .coverCta{
-      grid-column: 1 / 3; /* <-- ocupa 2 columnas */
+      /* Ocupa las 2 columnas */
+      grid-column: 1 / -1;
       border:2px solid rgba(255,255,255,.95);
       background: radial-gradient(circle at 25% 0%, rgba(255,133,179,.35), transparent 55%),
                   linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
       border-radius: 24px;
       box-shadow: 0 14px 22px rgba(0,0,0,.12);
-      padding: 14px 12px;
+      padding: 12px;
       text-align:center;
       cursor:pointer;
       display:grid;
-      gap:8px;
+      gap:6px;
       place-items:center;
       position:relative;
       overflow:hidden;
       font-family:'Fredoka', sans-serif;
-      margin-top: 6px;
+      /* Se alinea al final de su celda (abajo) */
+      align-self: end; 
+      margin-top: 4px;
     }
 
     .coverCta::before{
@@ -533,7 +540,7 @@
     .coverCtaTitle{
       position:relative;
       font-weight: 900;
-      font-size: 22px;
+      font-size: 20px;
       color: var(--hk-red);
       text-shadow: 2px 2px 0 #fff;
       line-height: 1.05;
@@ -542,7 +549,7 @@
     .coverCtaSub{
       position:relative;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted);
     }
 
@@ -551,12 +558,12 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 10px 14px;
+      padding: 8px 14px;
       border-radius: 999px;
       background: var(--hk-red);
       color:#fff;
       font-weight: 900;
-      font-size: 14px;
+      font-size: 13px;
       box-shadow: 0 12px 22px rgba(255,51,102,.35);
     }
 
@@ -596,7 +603,8 @@
         padding: 12px;
       }
       .coverMemoriesBox .memories.timeline6{ gap:10px; }
-      .coverCta{ padding: 13px 12px; }
+      .coverCta{ padding: 10px; }
+      .coverCtaTitle{ font-size: 18px; }
     }
   </style>
 </head>
@@ -626,7 +634,6 @@
         </div>
       </div>
 
-      <!-- oculto por CSS (no lo borramos para no romper nada) -->
       <div class="coverText">
         <h1 class="coverTitle">¡Cumple de Victoria! 🎀</h1>
         <p class="coverSub">Entrá a la invitación y confirmá por WhatsApp</p>
