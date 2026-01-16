@@ -33,8 +33,6 @@
     *{box-sizing:border-box}
     html,body{height:100%}
 	html, body{
-  overscroll-behavior: none;
-  touch-action: manipulation;
 }
 
 
@@ -45,8 +43,7 @@
       background-color: var(--bg-pink);
       -webkit-font-smoothing: antialiased;
       overflow-x:hidden;
-	  position: fixed;
-	  width: 100%;
+
 
       background-image: url("img/fondo-kitty.jpg");
       background-repeat: repeat;
@@ -311,7 +308,6 @@
       position:relative;
       overflow:hidden;
       user-select:none;
-      touch-action: manipulation;
     }
     .ground{
       position:absolute;
@@ -408,7 +404,6 @@
       display:grid;
       place-items:center;
       z-index:5;
-      touch-action: manipulation;
     }
     .jumpBtn:active{ transform: scale(0.97); }
 
@@ -651,6 +646,35 @@
       .coverSticker{ animation: none; }
       .btn{ transition:none; }
     }
+	/* ESTILOS DEL CONTADOR */
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.time-box {
+  background: var(--hk-red);
+  color: #fff;
+  padding: 8px 5px;
+  border-radius: 12px;
+  width: 65px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(255, 51, 102, 0.25);
+  border: 2px solid rgba(255,255,255,0.4);
+}
+.time-box span {
+  display: block;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+.time-box small {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
   </style>
 </head>
 
@@ -718,6 +742,24 @@
       <img class="sticker mapKitty front" src="img/sticker-kitty-2.png" alt="" onerror="this.style.display='none'">
 
       <h3 class="sectionTitle">Detalles del cumple 🎉</h3>
+	  <div id="countdown" class="countdown-container">
+  <div class="time-box">
+    <span id="days">00</span>
+    <small>Días</small>
+  </div>
+  <div class="time-box">
+    <span id="hours">00</span>
+    <small>Hs</small>
+  </div>
+  <div class="time-box">
+    <span id="minutes">00</span>
+    <small>Min</small>
+  </div>
+  <div class="time-box">
+    <span id="seconds">00</span>
+    <small>Seg</small>
+  </div>
+</div>
 
       <div class="info">
         <div class="icon">📅</div>
@@ -857,6 +899,49 @@
       ]
     }
   };
+  // ==========================================
+  // INICIO CÓDIGO DEL CONTADOR
+  // ==========================================
+  function updateCountdown() {
+    const now = new Date().getTime();
+    // Usa la fecha que ya definiste en 'config'
+    const eventDate = new Date(config.startISO).getTime();
+    const distance = eventDate - now;
+
+    // Si ya pasó la fecha
+    if (distance < 0) {
+      const container = document.getElementById("countdown");
+      if(container) {
+          container.innerHTML = "<div style='text-align:center; font-weight:900; color:var(--hk-red); width:100%; font-size:18px;'>¡Hoy es el cumple! 🎉</div>";
+      }
+      return;
+    }
+
+    // Cálculos de tiempo
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Actualizar HTML (solo si existen los elementos)
+    const elD = document.getElementById("days");
+    const elH = document.getElementById("hours");
+    const elM = document.getElementById("minutes");
+    const elS = document.getElementById("seconds");
+
+    if(elD) elD.innerText = d < 10 ? "0" + d : d;
+    if(elH) elH.innerText = h < 10 ? "0" + h : h;
+    if(elM) elM.innerText = m < 10 ? "0" + m : m;
+    if(elS) elS.innerText = s < 10 ? "0" + s : s;
+  }
+  
+  // Iniciar el reloj y actualizarlo cada 1 segundo
+  setInterval(updateCountdown, 1000);
+  // Ejecutarlo una vez ya mismo para que no tarde 1 seg en aparecer
+  updateCountdown();
+  // ==========================================
+  // FIN CÓDIGO DEL CONTADOR
+  // ==========================================
 
   // ====== AUDIO FIX: lazy init + unlock seguro (iOS/Safari) ======
   let audioCtx = null;
