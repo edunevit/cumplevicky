@@ -562,6 +562,79 @@
       }
       .coverMemoriesBox .memories{ gap:12px; }
     }
+	/* Portada: 0–5 + CTA grande */
+.coverMemoriesBox .memories.timeline6{
+  margin:0;
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+  grid-auto-rows: 1fr;
+  align-content:start;
+}
+
+.coverCta{
+  grid-column: 1 / 4;
+  border:2px solid rgba(255,255,255,.95);
+  background: radial-gradient(circle at 25% 0%, rgba(255,133,179,.35), transparent 55%),
+              linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
+  border-radius: 24px;
+  box-shadow: 0 14px 22px rgba(0,0,0,.12);
+  padding: 16px 14px;
+  text-align:center;
+  cursor:pointer;
+  display:grid;
+  gap:8px;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+  font-family:'Fredoka', sans-serif;
+}
+
+.coverCta::before{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,51,102,.18), transparent 55%),
+    radial-gradient(circle at 85% 55%, rgba(255,133,179,.20), transparent 60%);
+  filter: blur(10px);
+  pointer-events:none;
+}
+
+.coverCtaTitle{
+  position:relative;
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--hk-red);
+  text-shadow: 2px 2px 0 #fff;
+  line-height: 1.05;
+}
+
+.coverCtaSub{
+  position:relative;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.coverCtaPill{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--hk-red);
+  color:#fff;
+  font-weight: 900;
+  font-size: 14px;
+  box-shadow: 0 12px 22px rgba(255,51,102,.35);
+}
+
+.coverCta:active{ transform: scale(0.99); }
+
   </style>
 </head>
 
@@ -573,15 +646,21 @@
         <div class="coverGlow"></div>
 
         <div class="coverMemoriesBox" aria-label="Vicky de 0 a 6 años">
-          <div class="memories timeline7">
-            <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
-            <div class="memory"><span class="badge">1</span><img src="img/vicky-1.jpg" alt="Vicky 1 año" onerror="this.style.display='none'"></div>
-            <div class="memory"><span class="badge">2</span><img src="img/vicky-2.jpg" alt="Vicky 2 años" onerror="this.style.display='none'"></div>
-            <div class="memory"><span class="badge">3</span><img src="img/vicky-3.jpg" alt="Vicky 3 años" onerror="this.style.display='none'"></div>
-            <div class="memory"><span class="badge">4</span><img src="img/vicky-4.jpg" alt="Vicky 4 años" onerror="this.style.display='none'"></div>
-            <div class="memory"><span class="badge">5</span><img src="img/vicky-5.jpg" alt="Vicky 5 años" onerror="this.style.display='none'"></div>
-            <div class="memory"><span class="badge">6</span><img src="img/vicky-6.jpg" alt="Vicky 6 años" onerror="this.style.display='none'"></div>
-          </div>
+          <div class="memories timeline6">
+  <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
+  <div class="memory"><span class="badge">1</span><img src="img/vicky-1.jpg" alt="Vicky 1 año" onerror="this.style.display='none'"></div>
+  <div class="memory"><span class="badge">2</span><img src="img/vicky-2.jpg" alt="Vicky 2 años" onerror="this.style.display='none'"></div>
+  <div class="memory"><span class="badge">3</span><img src="img/vicky-3.jpg" alt="Vicky 3 años" onerror="this.style.display='none'"></div>
+  <div class="memory"><span class="badge">4</span><img src="img/vicky-4.jpg" alt="Vicky 4 años" onerror="this.style.display='none'"></div>
+  <div class="memory"><span class="badge">5</span><img src="img/vicky-5.jpg" alt="Vicky 5 años" onerror="this.style.display='none'"></div>
+
+  <button class="coverCta" id="coverCtaBtn" type="button" aria-label="Entrar a la invitación">
+    <div class="coverCtaTitle">¡Cumple de Vicky! 🎀</div>
+    <div class="coverCtaSub">Entrá a la invitación</div>
+    <div class="coverCtaPill">🎉 Entrar</div>
+  </button>
+</div>
+
         </div>
 
       </div>
@@ -589,10 +668,6 @@
       <div class="coverText">
         <h1 class="coverTitle">¡Cumple de Victoria! 🎀</h1>
         <p class="coverSub">Entrá a la invitación y confirmá por WhatsApp</p>
-      </div>
-
-      <div class="coverBtnWrap">
-        <button class="btn primary" id="btnEnter">🎉 Entrar a la invitación</button>
       </div>
     </div>
   </div>
