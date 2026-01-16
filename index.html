@@ -477,17 +477,51 @@
     }
 
     /* Stickers mágicos laterales (solo portada) */
+    /* Stickers mágicos laterales (solo portada) */
     .coverSticker{
       position:absolute;
-      width:110px;
+      width:110px; /* Tamaño base */
       height:auto;
       pointer-events:none;
       user-select:none;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
-      opacity: .60;
-      z-index:1;
+      opacity: .85; /* Les subí un poco la opacidad para que se luzcan más */
+      z-index: 1; /* Estarán por encima del fondo pero debajo de las fotos */
       animation: coverFloat 6.5s ease-in-out infinite;
-      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    @keyframes coverFloat{
+      0%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
+      50%{ transform: translateY(-20px) rotate(var(--rot, 0deg)); } /* Flotan un poco más */
+      100%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
+    }
+
+    /* POSICIONES LIBRES EN LA PANTALLA */
+    /* Usamos top/bottom/left/right con porcentajes para usar toda la pantalla */
+    
+    /* Arriba Izquierda */
+    .cs1{ top: 5vh; left: -5vw; --rot:-15deg; animation-delay: 0s; }
+    
+    /* Arriba Derecha */
+    .cs2{ top: 2vh; right: -8vw; --rot:10deg; animation-delay: 1s; }
+    
+    /* Abajo Izquierda */
+    .cs3{ bottom: 5vh; left: -6vw; --rot:12deg; animation-delay: 2s; }
+    
+    /* Abajo Derecha */
+    .cs4{ bottom: 8vh; right: -5vw; --rot:-10deg; animation-delay: 3s; }
+    
+    /* Medio Izquierda (más pequeño) */
+    .cs5{ top: 45vh; left: -12vw; --rot:20deg; animation-delay: 1.5s; width:90px; opacity:0.6; }
+    
+    /* Medio Derecha (más pequeño) */
+    .cs6{ top: 35vh; right: -12vw; --rot:-15deg; animation-delay: 2.5s; width:90px; opacity:0.6; }
+
+    /* Ajuste para que las fotos queden POR ENCIMA de las kitties flotantes */
+    .coverMemoriesBox {
+        position: relative; /* Asegura que respete el z-index */
+        z-index: 10; 
     }
     @keyframes coverFloat{
       0%{ transform: translateY(0) rotate(var(--rot, 0deg)); }
@@ -659,21 +693,22 @@
 <body>
 
   <div class="cover" id="cover">
-    <div class="coverBox">
-      <div class="coverBg">
-        <div class="coverGlow"></div>
+    
+    <img class="coverSticker cs1" src="img/sticker-kitty-1.png" alt="" onerror="this.style.display='none'">
+    <img class="coverSticker cs2" src="img/sticker-kitty-2.png" alt="" onerror="this.style.display='none'">
+    <img class="coverSticker cs3" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
+    <img class="coverSticker cs4" src="img/sticker-kitty-5.png" alt="" onerror="this.style.display='none'">
+    <img class="coverSticker cs5" src="img/sticker-kitty-4.png" alt="" onerror="this.style.display='none'">
+    <img class="coverSticker cs6" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
 
-        <!-- Stickers mágicos laterales (PORTADA) -->
-        <img class="coverSticker cs1" src="img/sticker-kitty-1.png" alt="" onerror="this.style.display='none'">
-        <img class="coverSticker cs2" src="img/sticker-kitty-2.png" alt="" onerror="this.style.display='none'">
-        <img class="coverSticker cs3" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
-        <img class="coverSticker cs4" src="img/sticker-kitty-5.png" alt="" onerror="this.style.display='none'">
-        <img class="coverSticker cs5" src="img/sticker-kitty-4.png" alt="" onerror="this.style.display='none'">
-        <img class="coverSticker cs6" src="img/sticker-kitty-3.png" alt="" onerror="this.style.display='none'">
+    <div class="coverBox">
+      <div class="coverBg" style="background: none; height: auto; min-height: 0; overflow: visible;">
+        
+        <div class="coverGlow"></div>
 
         <div class="coverMemoriesBox" aria-label="Vicky de 0 a 5 años">
           <div class="memories timeline6">
-            <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
+             <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
             <div class="memory"><span class="badge">1</span><img src="img/vicky-1.jpg" alt="Vicky 1 año" onerror="this.style.display='none'"></div>
             <div class="memory"><span class="badge">2</span><img src="img/vicky-2.jpg" alt="Vicky 2 años" onerror="this.style.display='none'"></div>
             <div class="memory"><span class="badge">3</span><img src="img/vicky-3.jpg" alt="Vicky 3 años" onerror="this.style.display='none'"></div>
