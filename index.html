@@ -459,7 +459,7 @@
       filter: blur(1.5px);
     }
 
-    /* ====== grilla 0-6 en la portada ====== */
+    /* ====== Portada: caja timeline + CTA integrado ====== */
     .coverMemoriesBox{
       position:absolute;
       inset: 14px;
@@ -472,10 +472,10 @@
       padding: 14px;
       display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:flex-start; /* FIX: antes centraba todo y quedaba "raro" en mobile */
     }
 
-    .coverMemoriesBox .memories{
+    .coverMemoriesBox .memories.timeline6{
       margin:0;
       width:100%;
       height:100%;
@@ -483,7 +483,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
       grid-auto-rows: 1fr;
-      align-content:center;
+      align-content:start;
     }
 
     .coverMemoriesBox .memory{
@@ -500,35 +500,71 @@
       padding:3px 7px;
       border-radius:999px;
     }
-    .coverMemoriesBox .memories.timeline7 .memory:last-child{
+
+    .coverCta{
       grid-column: 1 / 4;
-      aspect-ratio: 3 / 1.2;
+      border:2px solid rgba(255,255,255,.95);
+      background: radial-gradient(circle at 25% 0%, rgba(255,133,179,.35), transparent 55%),
+                  linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
+      border-radius: 24px;
+      box-shadow: 0 14px 22px rgba(0,0,0,.12);
+      padding: 14px 12px; /* FIX: un toque más compacto */
+      text-align:center;
+      cursor:pointer;
+      display:grid;
+      gap:8px;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+      font-family:'Fredoka', sans-serif;
+      margin-top: 6px; /* FIX: junta visualmente con las fotos */
     }
 
-    .coverText{
-      padding:16px 18px 18px;
-      background:#fff;
-      text-align:center;
+    .coverCta::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,51,102,.18), transparent 55%),
+        radial-gradient(circle at 85% 55%, rgba(255,133,179,.20), transparent 60%);
+      filter: blur(10px);
+      pointer-events:none;
     }
-    .coverTitle{
-      margin:0;
-      font-size:34px;
-      line-height:1.02;
-      letter-spacing:-0.8px;
+
+    .coverCtaTitle{
+      position:relative;
+      font-weight: 900;
+      font-size: 22px;
       color: var(--hk-red);
       text-shadow: 2px 2px 0 #fff;
-      font-weight:900;
+      line-height: 1.05;
     }
-    .coverSub{
-      margin:10px 0 0;
-      font-size:14px;
+
+    .coverCtaSub{
+      position:relative;
+      font-weight: 800;
+      font-size: 14px;
       color: var(--muted);
-      font-weight:800;
     }
-    .coverBtnWrap{
-      padding: 0 18px 18px;
-      background:#fff;
+
+    .coverCtaPill{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--hk-red);
+      color:#fff;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 12px 22px rgba(255,51,102,.35);
     }
+
+    .coverCta:active{ transform: scale(0.99); }
+
+    /* ====== Importante: sacamos el bloque duplicado de texto/botón de portada ====== */
+    .coverText, .coverBtnWrap{ display:none; }
 
     .footerPillWrap{
       display:flex;
@@ -560,81 +596,9 @@
         inset: 12px;
         padding: 12px;
       }
-      .coverMemoriesBox .memories{ gap:12px; }
+      .coverMemoriesBox .memories.timeline6{ gap:12px; }
+      .coverCta{ padding: 13px 12px; }
     }
-	/* Portada: 0–5 + CTA grande */
-.coverMemoriesBox .memories.timeline6{
-  margin:0;
-  width:100%;
-  height:100%;
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:14px;
-  grid-auto-rows: 1fr;
-  align-content:start;
-}
-
-.coverCta{
-  grid-column: 1 / 4;
-  border:2px solid rgba(255,255,255,.95);
-  background: radial-gradient(circle at 25% 0%, rgba(255,133,179,.35), transparent 55%),
-              linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
-  border-radius: 24px;
-  box-shadow: 0 14px 22px rgba(0,0,0,.12);
-  padding: 16px 14px;
-  text-align:center;
-  cursor:pointer;
-  display:grid;
-  gap:8px;
-  place-items:center;
-  position:relative;
-  overflow:hidden;
-  font-family:'Fredoka', sans-serif;
-}
-
-.coverCta::before{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,51,102,.18), transparent 55%),
-    radial-gradient(circle at 85% 55%, rgba(255,133,179,.20), transparent 60%);
-  filter: blur(10px);
-  pointer-events:none;
-}
-
-.coverCtaTitle{
-  position:relative;
-  font-weight: 900;
-  font-size: 22px;
-  color: var(--hk-red);
-  text-shadow: 2px 2px 0 #fff;
-  line-height: 1.05;
-}
-
-.coverCtaSub{
-  position:relative;
-  font-weight: 800;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.coverCtaPill{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: var(--hk-red);
-  color:#fff;
-  font-weight: 900;
-  font-size: 14px;
-  box-shadow: 0 12px 22px rgba(255,51,102,.35);
-}
-
-.coverCta:active{ transform: scale(0.99); }
-
   </style>
 </head>
 
@@ -645,29 +609,31 @@
       <div class="coverBg">
         <div class="coverGlow"></div>
 
-        <div class="coverMemoriesBox" aria-label="Vicky de 0 a 6 años">
+        <div class="coverMemoriesBox" aria-label="Vicky de 0 a 5 años">
           <div class="memories timeline6">
-  <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
-  <div class="memory"><span class="badge">1</span><img src="img/vicky-1.jpg" alt="Vicky 1 año" onerror="this.style.display='none'"></div>
-  <div class="memory"><span class="badge">2</span><img src="img/vicky-2.jpg" alt="Vicky 2 años" onerror="this.style.display='none'"></div>
-  <div class="memory"><span class="badge">3</span><img src="img/vicky-3.jpg" alt="Vicky 3 años" onerror="this.style.display='none'"></div>
-  <div class="memory"><span class="badge">4</span><img src="img/vicky-4.jpg" alt="Vicky 4 años" onerror="this.style.display='none'"></div>
-  <div class="memory"><span class="badge">5</span><img src="img/vicky-5.jpg" alt="Vicky 5 años" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">0</span><img src="img/vicky-0.jpg" alt="Vicky 0 años" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">1</span><img src="img/vicky-1.jpg" alt="Vicky 1 año" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">2</span><img src="img/vicky-2.jpg" alt="Vicky 2 años" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">3</span><img src="img/vicky-3.jpg" alt="Vicky 3 años" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">4</span><img src="img/vicky-4.jpg" alt="Vicky 4 años" onerror="this.style.display='none'"></div>
+            <div class="memory"><span class="badge">5</span><img src="img/vicky-5.jpg" alt="Vicky 5 años" onerror="this.style.display='none'"></div>
 
-  <button class="coverCta" id="coverCtaBtn" type="button" aria-label="Entrar a la invitación">
-    <div class="coverCtaTitle">¡Cumple de Vicky! 🎀</div>
-    <div class="coverCtaSub">Entrá a la invitación</div>
-    <div class="coverCtaPill">🎉 Entrar</div>
-  </button>
-</div>
-
+            <button class="coverCta" id="coverCtaBtn" type="button" aria-label="Entrar a la invitación">
+              <div class="coverCtaTitle">¡Cumple de Vicky! 🎀</div>
+              <div class="coverCtaSub">Entrá a la invitación</div>
+              <div class="coverCtaPill">🎉 Entrar</div>
+            </button>
+          </div>
         </div>
-
       </div>
 
+      <!-- oculto por CSS (no lo borramos para no romper nada) -->
       <div class="coverText">
         <h1 class="coverTitle">¡Cumple de Victoria! 🎀</h1>
         <p class="coverSub">Entrá a la invitación y confirmá por WhatsApp</p>
+      </div>
+      <div class="coverBtnWrap">
+        <button class="btn primary" id="btnEnter" type="button">🎉 Entrar a la invitación</button>
       </div>
     </div>
   </div>
@@ -860,7 +826,6 @@
     }
   }
 
-  // Asegurate de tener estos archivos en la carpeta audio/
   loadSound("bow",  "audio/bow.mp3");
   loadSound("fart", "audio/fart.mp3");
   loadSound("jump", "audio/jump.mp3");
@@ -910,15 +875,20 @@
   // Portada
   const cover = document.getElementById("cover");
   const btnBack = document.getElementById("btnBack");
+  const btnEnter = document.getElementById("btnEnter");
+  const coverCtaBtn = document.getElementById("coverCtaBtn");
 
-  document.getElementById("btnEnter").addEventListener("click", ()=>{
+  function enterInvite(){
     unlockAudio();
     triggerConfetti();
     cover.classList.add("hidden");
     btnBack.style.display = "inline-flex";
     setTimeout(()=>{ cover.style.display = "none"; }, 420);
     window.scrollTo(0,0);
-  });
+  }
+
+  if(btnEnter) btnEnter.addEventListener("click", enterInvite);
+  if(coverCtaBtn) coverCtaBtn.addEventListener("click", enterInvite);
 
   // Fecha/Hora/Lugar
   const start = new Date(config.startISO);
@@ -931,10 +901,8 @@
     hour: "2-digit", minute: "2-digit", hour12: false
   });
 
-  // (Opcional) Capitalizar día: "Sábado ..."
   const dateStr = fmtDate.format(start);
   document.getElementById("dateText").textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-
   document.getElementById("timeText").textContent = `${fmtTime.format(start)} a ${fmtTime.format(end)} hs`;
   document.getElementById("placeText").textContent = config.lugarNombre;
   document.getElementById("btnMaps").href = config.mapsUrl;
@@ -1178,7 +1146,6 @@ Adultos: ${guests} | Niños: ${kids}${namesBlock}${obsBlock}
 
   function jump(){
     ensureStart();
-    // ====== FIX: tolerancia para que nunca "falle" el salto ======
     if(y <= 0.01){
       y = 0;
       vy = JUMP_V;
